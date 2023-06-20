@@ -1,0 +1,344 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: 'ZhanKu Happy';
+  src: url(a.ttf);
+}
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+SC:500');
+
+body{
+  width: 100%;
+  height: 100vh;
+  font-weight: 500;
+  font-family: system-ui;
+  overflow: hidden;
+}
+
+main{
+  padding: 20px;
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  overflow: hidden;
+  /* backdrop-filter: blur(20px); */
+  transition: all .3s;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+main>.album_img{
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 1;
+  object-fit: cover;
+  object-position: center center;
+}
+main .left{
+  transition: background .3s;
+  width: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+  transition: color .3s;
+  position: absolute;
+  top:0;
+  left: 0;
+  z-index: 3;
+  background-color: #fffc;
+}
+main .left img{
+  width: 60%;
+  border-radius: 20px;
+  aspect-ratio: 1;
+  margin: 20px 0;
+  background-image: url(cover.png);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+main .left .song_name{
+  font-size: 32px;
+  line-height: 60px;
+}
+main .left .album_name{
+  font-size: 20px;
+  line-height: 30px;
+  color: #0009;
+}
+main .left .song_range{
+  width: 80%;
+  margin-top: 30px;
+}
+main .left .time_picker{
+  font-size: 15px;
+  color: #0009;
+  padding-bottom: 30px;
+}
+main .left .controls{
+  width: 70%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+main .left .controls>*{
+  font-size: 30px;
+  line-height: 60px;
+  color: #09f;
+  transition: all .2s;
+}
+main .left .controls>*:hover{
+  color: #0cf;
+  transform: scale(1.2);
+}
+main .left .controls>*:active{
+  color: #06f;
+  transform: scale(0.8);
+}
+main .left .controls .playbtn{
+  font-size: 48px;
+}
+main .right{
+  transition: background .3s;
+  float: left;
+  width: 60%;
+  height: calc(100% - 100px);
+  padding: 50px 0;
+  overflow: hidden;
+  position: absolute;
+  top:0;
+  right: 0;
+  z-index: 3;
+  background-color: #fffc;
+}
+main .right ul{
+  margin-top: 300px;
+  transition: all .6s;
+}
+main .right ul li{
+  list-style: none;
+  text-align: center;
+  font-size: 24px;
+  line-height: 80px;
+  transition: all .6s;
+}
+main .right ul li.act{
+  font-size: 36px;
+  color: #09f;
+}
+main .floatbtns{
+  position: absolute;
+  top: 50px;
+  right: 25px;
+  z-index: 4;
+}
+main .floatbtns>div{
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border:#aaaa solid 3px;
+  margin: 10px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 20px;
+  color: #444a;
+  background-color: #fff5;
+  display: block;
+}
+main .floatbtns>div:hover{
+  border-color: #999;
+  color: #444;
+}
+
+main.hide{
+  padding: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  position: absolute;
+  left: calc(50% - 30px);
+  bottom: 30px;
+  box-shadow: #888 0 1px 5px;
+  top: auto;
+}
+main.hide .album_img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 60px;
+  height: 60px;
+  margin: 0;
+}
+
+.search{
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+}
+
+.search h1{
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #09f;
+  font-size: 40px;
+  line-height: 60px;
+  transition: opacity .4s;
+}
+.search .searchbox{
+  position: absolute;
+  top: 280px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 600px;
+  min-width: 290px;
+  box-shadow: #888 0 1px 5px;
+  height: 30px;
+  padding:5px 10px;
+  border-radius: 40px;
+  transition: top .5s;
+}
+.search .searchbox input{
+  width: calc(100% - 40px);
+  height: 30px;
+  border: 0;
+  outline: 0;
+  float: left;
+  font-size: 16px;
+  padding-left: 10px;
+  background-color: transparent;
+}
+.search ul{
+  opacity: 0; 
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 600px;
+  min-width: 290px;
+  height: calc(100vh - 100px);
+  pointer-events: none;
+  transition: opacity .5s;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+@media(max-width:480px){
+  .search ul{
+    width: 100%;
+  }
+}
+.search ul>span{
+  color: #888;
+}
+.search ul li{
+  list-style: none;
+  line-height: 30px;
+  height: 30px;
+  width: calc(100% - 20px);
+  transition: all .1s;
+  padding: 10px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.search ul li:hover{
+  background-color: #eee;
+}
+.search ul li span.si{
+  padding: 0 .5em;
+}
+.search .searchbox:has(input:valid){
+  top: 20px;
+}
+.search .searchbox:has(input:valid)~h1{
+  opacity: 0;
+}
+.search .searchbox:has(input:valid)~ul{
+  opacity: 1;
+  pointer-events: all;
+}
+.search .searchbox button{
+  width: 30px;
+  height: 30px;
+  border: 0;
+  outline: 0;
+  float: left;
+  font-size: 16px;
+  background-color: transparent;
+  cursor: pointer;
+}
+.search .searchbox button:hover{
+  color: #09f;
+}
+
+@media(max-width:700px){
+  main .left,
+  main .right{
+    width: 100%;
+  }
+  main .right{
+    background-color: transparent!important;
+  }
+  main .left img{
+    width: 200px;
+  }
+  main .left .song_name{
+    font-size: 28px;
+    line-height: 50px;
+  }
+  main .left .album_name{
+    font-size: 20px;
+    padding-bottom: calc(100vh - 450px);
+  }
+  main .right{
+    top: 320px;
+    height: calc(100vh - 450px);
+    padding: 0;
+  }
+  main .right li{
+    font-size: 16px!important;
+    line-height: 40px!important;
+  }
+  main .right li.act{
+    font-size: 20px!important;
+  }
+  main .left .time_picker{
+    padding-bottom: 0;
+  }
+  main .floatbtns{
+    top: auto;
+    bottom: 100px;
+    right: 10px;
+  }
+  main .floatbtns>div{
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+    border-width: 1px;
+    font-size: 14px;
+    line-height: 24px;
+  }
+  main .right.more{
+    top: 0;
+    height: calc(100vh - 130px);
+  }
+  main:has(.right.more) .left img,
+  main:has(.right.more) .left .album_name,
+  main:has(.right.more) .left .song_name
+  {
+    opacity: 0;
+  }
+  .fullscreen{
+    display: none!important;
+  }
+}

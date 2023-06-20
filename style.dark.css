@@ -1,0 +1,35 @@
+body.dark{
+  color: #fff;
+  color-scheme: dark;
+}
+body.dark main .left,
+body.dark main .right{
+  background-color: #000a;
+}
+body.dark main .left .album_name,
+body.dark main .left .time_picker{
+  color: #fff9;
+}
+body.dark main .floatbtns>div{
+  border-color:#aaaa;
+  color: #aaaa;
+  background-color: #0005;
+}
+body.dark main .floatbtns>div:hover{
+  border-color: #999;
+  color: #aaa;
+}
+body.dark .search{
+  background-color: #000;
+}
+body.dark .search .bi,
+body.dark .search input
+{
+  color: #fff;
+}
+body.dark .search li:hover{
+  background-color: #666;
+}
+body.dark .search .bi:hover{
+  color: #09f;
+}

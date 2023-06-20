@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fh 音乐</title>
+  <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.10.4/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./style.dark.css">
+</head>
+<body>
+  <div class="search">
+    <div class="searchbox">
+      <input type="text" required placeholder="搜索音乐">
+      <button class="bi bi-search"></button>
+    </div>
+    <h1>Fh 音乐</h1>
+    <ul>
+      <span>回车发起检索...</span>
+    </ul>
+  </div>
+  <main class="hide">
+    <img src="cover.png" alt="" class="album_img">
+    <div class="left">
+      <img src="cover.png" alt="" class="album_img">
+      <p class="song_name"></p>
+      <p class="album_name"></p>
+      <input type="range" class="song_range" min="0" max="100" value="0">
+      <p class="time_picker">00:00/00:00</p>
+      <div class="controls">
+        <div class="bi bi-skip-start-fill lastbtn"></div>
+        <div class="bi bi-play-fill playbtn"></div>
+        <div class="bi bi-skip-end-fill nextbtn"></div>
+      </div>
+    </div>
+    <div class="right">
+      <ul></ul>
+    </div>
+    <div class="floatbtns">
+      <div class="closebtn bi bi-x-lg"></div>
+      <div class="fullscreen bi bi-arrows-angle-expand"></div>
+      <div class="mode bi bi-brightness-high-fill"></div>
+      <div class="fonttoggler">字</div>
+      <div class="downloader bi bi-download"></div>
+    </div>
+  </main>
+  <audio id="audio"></audio>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="script.js"></script>
+</html>
