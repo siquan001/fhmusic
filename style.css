@@ -11,7 +11,6 @@
 
 body{
   width: 100%;
-  height: 100vh;
   font-weight: 500;
   font-family: system-ui;
   overflow: hidden;
@@ -180,7 +179,7 @@ main.hide .album_img{
 
 .search{
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: #fff;
 }
 
@@ -227,7 +226,7 @@ main.hide .album_img{
   width: 80%;
   max-width: 600px;
   min-width: 290px;
-  height: calc(100vh - 100px);
+  height: calc(100% - 100px);
   pointer-events: none;
   transition: opacity .5s;
   overflow-y: auto;
@@ -256,16 +255,6 @@ main.hide .album_img{
 }
 .search ul li span.si{
   padding: 0 .5em;
-}
-.search .searchbox:has(input:valid){
-  top: 20px;
-}
-.search .searchbox:has(input:valid)~h1{
-  opacity: 0;
-}
-.search .searchbox:has(input:valid)~ul{
-  opacity: 1;
-  pointer-events: all;
 }
 .search .searchbox button{
   width: 30px;
@@ -298,11 +287,11 @@ main.hide .album_img{
   }
   main .left .album_name{
     font-size: 20px;
-    padding-bottom: calc(100vh - 450px);
+    padding-bottom: calc(100% - 450px);
   }
   main .right{
     top: 320px;
-    height: calc(100vh - 450px);
+    height: calc(100% - 450px);
     padding: 0;
   }
   main .right li{
@@ -330,13 +319,7 @@ main.hide .album_img{
   }
   main .right.more{
     top: 0;
-    height: calc(100vh - 130px);
-  }
-  main:has(.right.more) .left img,
-  main:has(.right.more) .left .album_name,
-  main:has(.right.more) .left .song_name
-  {
-    opacity: 0;
+    height: calc(100% - 130px);
   }
   .fullscreen{
     display: none!important;

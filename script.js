@@ -10,7 +10,19 @@ if(localStorage.getItem('hashlist')){
 }else{
   localStorage.setItem('hashlist',JSON.stringify(hashlist));
 }
+$('body').css('height',$(window).height()+'px');
 
+$(window).on('resize',r)
+function r(){
+  if($(window).width()<=700){
+    $('main .left .album_name').css('padding-bottom',$(window).height()-450+'px');
+  }else{
+    $('main .left .album_name').css('padding-bottom','');
+    $('.right').removeClass('more');
+      $('.left img').add('.left .album_name').add('.left .song_name').css('opacity','');
+  }
+}
+r();
 var isi = 0;
 var oLRC = {
   ms: [{ t: '0.000', c: "歌词获取中" }]
@@ -276,6 +288,18 @@ $('.searchbox input').keydown(function (e) {
     e.preventDefault();
     openSearch($(this).val().trim())
   }
+});
+
+$('.searchbox input').on('input',function(){
+  if($(this).val()){
+    $('.searchbox').css('top','20px');
+    $('.search h1').css('opacity','0');
+    $('.search ul').css('opacity','1');
+  }else{
+    $('.searchbox').css('top','');
+    $('.search h1').css('opacity','');
+    $('.search ul').css('opacity','');
+  }
 })
 $('.searchbox button').click(function () {
   if ($('.searchbox input').val().trim()) {
@@ -320,8 +344,10 @@ $('.right').click(function(){
   if($(window).width()<=700){
     if($('.right')[0].classList.contains('more')){
       $('.right').removeClass('more');
+      $('.left img').add('.left .album_name').add('.left .song_name').css('opacity','');
     }else{
       $('.right').addClass('more');
+      $('.left img').add('.left .album_name').add('.left .song_name').css('opacity','0');
     }
   }
 })
