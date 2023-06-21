@@ -267,7 +267,7 @@ function openSearch(keyword) {
   $('.search ul').html('');
   $.ajax({
     dataType: 'jsonp',
-    url: 'https://mobilecdn.kugou.com/api/v3/search/song?format=jsonp&keyword=' + keyword + '&page=1&pagesize=30&showtype=1',
+    url: 'https://mobiles.kugou.com/api/v3/search/song?format=jsonp&keyword=' + keyword + '&page=1&pagesize=30&showtype=1',
     success: function (res) {
       console.log(res);
       for (var i = 0; i < res.data.info.length; i++) {
