@@ -267,7 +267,7 @@ function openSearch(keyword) {
   $('.search ul').html('');
   $.ajax({
     dataType: 'jsonp',
-    url: 'http://mobilecdn.kugou.com/api/v3/search/song?format=jsonp&keyword=' + keyword + '&page=1&pagesize=30&showtype=1',
+    url: 'https://mobilecdn.kugou.com/api/v3/search/song?format=jsonp&keyword=' + keyword + '&page=1&pagesize=30&showtype=1',
     success: function (res) {
       console.log(res);
       for (var i = 0; i < res.data.info.length; i++) {
@@ -278,6 +278,8 @@ function openSearch(keyword) {
           hash: $(this).attr('data-hash'),
           album_id: $(this).attr('data-albumid')
         })
+  localStorage.setItem('hashlist',JSON.stringify(hashlist));
+
         openMusic(0);
         $('main').click();
       })
