@@ -51,7 +51,7 @@ main .left{
   top:0;
   left: 0;
   z-index: 3;
-  background-color: #fffc;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 main .left img{
   width: 60%;
@@ -70,7 +70,7 @@ main .left .song_name{
 main .left .album_name{
   font-size: 20px;
   line-height: 30px;
-  color: #0009;
+  color: rgba(0, 0, 0, 0.6);
 }
 main .left .song_range{
   width: 80%;
@@ -78,7 +78,7 @@ main .left .song_range{
 }
 main .left .time_picker{
   font-size: 15px;
-  color: #0009;
+  color: rgba(0, 0, 0, 0.6);
   padding-bottom: 30px;
 }
 main .left .controls{
@@ -115,7 +115,7 @@ main .right{
   top:0;
   right: 0;
   z-index: 3;
-  background-color: #fffc;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 main .right ul{
   margin-top: 300px;
@@ -142,13 +142,13 @@ main .floatbtns>div{
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  border:#aaaa solid 3px;
+  border:rgba(170, 170, 170, 0.667) solid 3px;
   margin: 10px;
   line-height: 40px;
   text-align: center;
   font-size: 20px;
-  color: #444a;
-  background-color: #fff5;
+  color: rgba(68, 68, 68, 0.667);
+  background-color: rgba(255, 255, 255, 0.333);
   display: block;
 }
 main .floatbtns>div:hover{

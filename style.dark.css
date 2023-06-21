@@ -4,16 +4,16 @@ body.dark{
 }
 body.dark main .left,
 body.dark main .right{
-  background-color: #000a;
+  background-color: rgba(0, 0, 0, 0.667);
 }
 body.dark main .left .album_name,
 body.dark main .left .time_picker{
-  color: #fff9;
+  color: rgba(255, 255, 255, 0.6);
 }
 body.dark main .floatbtns>div{
-  border-color:#aaaa;
-  color: #aaaa;
-  background-color: #0005;
+  border-color:rgba(170, 170, 170, 0.667);
+  color: rgba(170, 170, 170, 0.667);
+  background-color: rgba(0, 0, 0, 0.333);
 }
 body.dark main .floatbtns>div:hover{
   border-color: #999;
