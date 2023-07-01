@@ -5,11 +5,6 @@ var hashlist = [
   }
 ];
 
-if(localStorage.getItem('hashlist')){
-  hashlist=JSON.parse(localStorage.getItem('hashlist'));
-}else{
-  localStorage.setItem('hashlist',JSON.stringify(hashlist));
-}
 
 $(window).on('resize',r)
 function r(){
@@ -46,7 +41,6 @@ function openMusic(i) {
       "&dfid=2mScsJ16ucV81qLdzD238ELf&appid=1014&mid=1b211caf58cd1e1fdfea5a4657cc21f5&platid=4&album_id=" + hashlist[i].album_id +
       "&_=" + Date.now(),
     success: function (res) {
-      console.log(res);
       $('.album_img').attr('src', res.data.img);
       $('.song_name').text(res.data.audio_name);
       $('.album_name').text(res.data.album_name);
@@ -222,7 +216,7 @@ document.onfullscreenchange = function () {
   }
 }
 
-document.onkeydown = function (e) {
+$('main')[0].onkeydown = function (e) {
   if (e.key == 'F11') {
     e.preventDefault();
     $('.fullscreen').click();
@@ -278,8 +272,6 @@ function openSearch(keyword) {
           hash: $(this).attr('data-hash'),
           album_id: $(this).attr('data-albumid')
         })
-  localStorage.setItem('hashlist',JSON.stringify(hashlist));
-
         openMusic(0);
         $('main').click();
       })
