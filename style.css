@@ -66,11 +66,21 @@ main .left img{
 main .left .song_name{
   font-size: 32px;
   line-height: 60px;
+  height:60px;
+  white-space:nowrap;
+  width:100%;
+  overflow:hidden;
+  text-overflow: ellipsis;
 }
 main .left .album_name{
   font-size: 20px;
   line-height: 30px;
   color: rgba(0, 0, 0, 0.6);
+  height:30px;
+  white-space:nowrap;
+  width:100%;
+  overflow:hidden;
+  text-overflow: ellipsis;
 }
 main .left .song_range{
   width: 80%;
