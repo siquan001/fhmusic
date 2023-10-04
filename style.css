@@ -71,6 +71,7 @@ main .left .song_name{
   width:100%;
   overflow:hidden;
   text-overflow: ellipsis;
+  text-align:center;
 }
 main .left .album_name{
   font-size: 20px;
@@ -80,6 +81,7 @@ main .left .album_name{
   white-space:nowrap;
   width:100%;
   overflow:hidden;
+  text-align:center;
   text-overflow: ellipsis;
 }
 main .left .song_range{
