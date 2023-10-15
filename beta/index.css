@@ -121,13 +121,16 @@ main{
   float: left;
   margin: 0 5px;
 }
+.musiclist li span.index{
+  max-width: 40px;
+}
 .musiclist li span.title{
-  max-width: calc(100% - 80px);
+  max-width: calc(100% - 90px);
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .page.search .musiclist li span.title{
-  max-width: calc(100% - 40px);
+  max-width: calc(100% - 60px);
 }
 span.vip{
   color: rgb(255, 208, 0);
