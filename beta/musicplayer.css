@@ -1,0 +1,210 @@
+.player{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom:0;
+  left:0;
+  z-index: 3;
+  background-color: #fff;
+  transition: all .3s;
+  box-shadow: #aaa 0 1px 5px;
+}
+.player.hide{
+  width: 60px;
+  height: 60px;
+  bottom: 10px;
+  left: calc(50% - 30px);
+  overflow: hidden;
+  border-radius: 50%;
+}
+.player.hide img{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 60px!important;
+  height: 60px!important;
+  z-index: 999;
+}
+.player.hide .right_lrc{
+  display: none;
+}
+.player .left_controls{
+  width: 400px;
+  height: 100%;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.player .left_controls img{
+  width: 260px;
+  box-shadow: #aaa 0 1px 5px;
+}
+.player .left_controls .title{
+  text-align: center;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 24px;
+}
+.player .left_controls .artist,
+.player .left_controls .album{
+  text-align: center;
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  color: #888;
+}
+.player .left_controls input{
+  width: 80%;
+  margin:10px 10%;
+}
+.player .left_controls .time_picker{
+  text-align: center;
+  color: #000;
+  font-size: 14px;
+}
+.player .left_controls .controls{
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.player .left_controls .controls>*{
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #09f;
+  float: left;
+  font-size:36px;
+  transition: all .3s;
+}
+.player .left_controls .controls>*:hover{
+  transform: scale(1.2);
+}
+.player .left_controls .controls>*:active{
+  transform: scale(.8);
+}
+.player .left_controls .controls .playbtn{
+  transform: scale(1.5);
+}
+.player .left_controls .controls .playbtn:hover{
+  transform: scale(1.8);
+}
+.player .left_controls .controls .playbtn:active{
+  transform: scale(1.2);
+}
+.player .right_lrc{
+  width: calc(100% - 400px);
+  height: 100%;
+  float: left;
+}
+.player .right_lrc ul{
+  width: calc(100% - 20px);
+  margin: 20px 10px;
+  height: calc(100% - 40px);
+  overflow-y: scroll;
+}
+.player .right_lrc ul::before{
+  content:'';
+  height: 50%;
+  display: block;
+}
+.player .right_lrc ul::after{
+  content:'';
+  height: 50%;
+  display: block;
+}
+.player .right_lrc ul li{
+  text-align: center;
+  line-height: 40px;
+  transition: all 1s;
+  font-size: 20px;
+  padding: 10px 0;
+}
+.player .right_lrc ul li.active{
+  font-size: 36px;
+  color: #09f;
+}
+.player .floatbtns{
+  position: absolute;
+  top: 50px;
+  right: 25px;
+  z-index: 4;
+}
+.player .floatbtns>div{
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border:rgba(170, 170, 170, 0.667) solid 3px;
+  margin: 10px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 20px;
+  color: rgba(68, 68, 68, 0.667);
+  background-color: rgba(255, 255, 255, 0.333);
+  display: block;
+}
+.player .floatbtns>div:hover{
+  border-color: #999;
+  color: #444;
+}
+.player .floatbtns .lrcer{
+  display: none;
+}
+.player .vip{
+  float: none;
+}
+.player.repeat .repeater{
+  color: #09f!important;
+  border-color: #09f!important;
+}
+@media(max-width:700px){
+  .player .floatbtns .lrcer{
+    display: block;
+  }
+  .player .left_controls{
+    width: 100%;
+  }
+  .player .right_lrc{
+    display: none;
+    width: 100%;
+  }
+  .player.haslrc .right_lrc{
+    display: block;
+  }
+  .player.haslrc .left_controls{
+    display: none;
+  }
+  .player.haslrc .lrcer{
+    color: #09f!important;
+    border-color: #09f!important;
+  }
+  .player .left_controls img{
+    width: 60%;
+    max-width: 260px;
+  }
+  .player .floatbtns{
+    top:5px;
+    right:5px;
+  }
+  .player .floatbtns>div{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+  }
+  .player .right_lrc ul li.active{
+    font-size: 24px;
+  }
+}

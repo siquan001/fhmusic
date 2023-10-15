@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fh音乐</title>
+  <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.11.0/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./musicplayer.css">
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <main>
+    <div class="leftmenu">
+      <div class="closeMenu">
+        <span class="bi bi-x-lg"></span>
+      </div>
+      <div class="logo">Fh音乐</div>
+      <ul>
+        <li class="active s1"> <span class="bi bi-search"></span> <span class="text">搜索</span></li>
+        <li class="s2"> <span class="bi bi-music-note-list"></span> <span class="text">播放列表</span></li>
+      </ul>
+      <div class="bottomer">
+        <p>本站已稳定运行 -1 天</p>
+        <p>音乐数据来源于<a target="_blank" href="https://kugou.com/">酷狗音乐</a></p>
+      </div>
+    </div>
+    <div class="rightcon">
+      <div class="page search active">
+        <div class="actionbar">
+          <div class="openMenu">
+            <div class="bi bi-list"></div>
+          </div>
+          <div class="searchbox">
+            <input type="search" id="searchinput" placeholder="搜索歌曲名、歌手名、专辑名、歌词">
+            <button class="bi bi-search" onclick="gosearch()"></button>
+          </div>
+        </div>
+        <div class="container">
+          <ul class="musiclist">
+
+          </ul>
+          <div class="showmore">
+            <a href="javascript:;">查看更多</a>
+            <p>没有更多了~</p>
+          </div>
+          <p style="height:100px;"></p>
+        </div>
+
+      </div>
+      <div class="page playlist">
+        <div class="openMenu">
+          <div class="bi bi-list"></div>
+        </div>
+        <div class="container">
+          <ul class="musiclist"></ul>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div class="player hide">
+    <audio id="audio"></audio>
+    <div class="left_controls">
+      <img id="player_album_img" src="https://image.gumengya.cn/i/2023/10/15/652b46cf15392.png">
+      <div class="title" id="player_song_title">--</div>
+      <div class="artist">歌手：<span id="player_song_artist">--</span></div>
+      <div class="album">专辑：<span id="player_song_album">--</span></div>
+      <input type="range" id="player_range">
+      <p class="time_picker">00:00/00:00</p>
+      <div class="controls">
+        <div class="bi bi-skip-start-fill lastbtn"></div>
+        <div class="bi bi-play-fill playbtn"></div>
+        <div class="bi bi-skip-end-fill nextbtn"></div>
+      </div>
+    </div>
+    <div class="right_lrc">
+      <ul>
+
+      </ul>
+    </div>
+    <div class="floatbtns">
+      <div class="closebtn bi bi-x-lg"></div>
+      <div class="fullscreen bi bi-arrows-angle-expand"></div>
+      <div class="downloader bi bi-download"></div>
+      <div class="repeater bi bi-repeat-1"></div>
+      <div class="lrcer">词</div>
+    </div>
+  </div>
+  <script src="./kugou.js"></script>
+  <script src="./index.js"></script>
+  <script src="./musicplayer.js"></script>
+</body>
+</html>
