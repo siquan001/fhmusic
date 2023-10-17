@@ -26,7 +26,10 @@
   z-index: 999;
 }
 .player.hide .right_lrc{
-  display: none;
+  display: none!important;
+}
+.player.hide .left_controls{
+  display: flex!important;
 }
 .player .left_controls{
   width: 400px;

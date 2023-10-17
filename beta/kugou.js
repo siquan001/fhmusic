@@ -1,10 +1,8 @@
 !function () {
   function jsonp(url, callback) {
     var script = document.createElement('script');
-    var urlm = new URL(url);
-    var fnname = 'jsonp_' + Math.random().toString().replace('.', '_');
-    urlm.searchParams.append('callback', fnname);
-    urlm = urlm.href;
+    var fnname= 'jsonp_' + Math.random().toString().replace('.', '');
+    var urlm = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback='+fnname;
     script.src = urlm;
     window[fnname] = function () {
       delete window[fnname];
@@ -28,7 +26,8 @@
   }
 
   function search(keyword, callback, page = 1) {
-    var url = 'https://mobiles.kugou.com/api/v3/search/song?format=jsonp&keyword=' + keyword + '&page=' + page + '&pagesize=30&showtype=1';
+    var url = 'https://mobiles.kugou.com/api/v3/search/song?format=jsonp&keyword=' + encodeURI(keyword) + '&page=' + page + '&pagesize=30&showtype=1';
+    console.log(url);
     var a=jsonp(url, function (data) {
       var res = {
         total: data.data.total,
