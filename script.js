@@ -279,7 +279,7 @@ function openSearch(key) {
 function searchSuccess(res){
   $('.search ul li.loading').remove();
     for (var i = 0; i < res.data.info.length; i++) {
-      $('.search ul').append('<li data-hash="' + res.data.info[i].hash + '" data-albumid="' + res.data.info[i].album_id + '"><span class="si">' + (i + 1) + '</span><span class="sname">' + res.data.info[i].filename + '</span></li>')
+      $('.search ul').append('<li data-hash="' + res.data.info[i].hash + '" data-albumid="' + res.data.info[i].album_id + '"><span class="si">' + (i + 1+(si-1)*30) + '</span><span class="sname">' + res.data.info[i].filename + '</span></li>')
     }
     $('.search ul').append('<li class="loadmore">加载更多</li>');
     $('.search ul li').click(function () {
