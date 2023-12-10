@@ -9,7 +9,9 @@
     }
     x.send();
     return {
-      abort:x.abort
+      abort:function(){
+        x.abort()
+      }
     }
   }
 
