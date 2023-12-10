@@ -77,11 +77,11 @@
         })
       }
     });
-    var b=xhr('https://api.gumengya.com/Api/Tencent?format=json&id='+id,function(res){
+    var b=xhr('https://api.vkeys.cn/API/QQ_Music/Lyric?mid='+id,function(res){
       if(res.code==200){
         ck({
-          lrcstr:res.data.lrc,
-          lrc:parseLrc(res.data.lrc)
+          lrcstr:res.data,
+          lrc:parseLrc(res.data)
         })
       }else{
         ck({
