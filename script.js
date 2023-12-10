@@ -75,13 +75,20 @@ $('#audio').on('pause', function () {
 });
 
 $('#audio').on('canplay', function () {
-  $(this)[0].play();
+  try{
+    $(this)[0].play();
+  }catch(e){}
   $('.time_picker').text(getFormatTime($(this)[0].currentTime) + '/' + getFormatTime($(this)[0].duration))
   $('.song_range').attr('max', $(this)[0].duration);
 });
 
 $('#audio').on('ended', function () {
-  $('.nextbtn').click();
+  if($('.lopper').hasClass('act')){
+    $(this)[0].currentTime=0;
+    $(this)[0].play();
+  }else{
+    $('.nextbtn').click();
+  }
 })
 $('#audio').on('timeupdate', function () {
   $('.time_picker').text(getFormatTime($(this)[0].currentTime) + '/' + getFormatTime($(this)[0].duration))
@@ -216,7 +223,8 @@ document.onfullscreenchange = function () {
   }
 }
 
-$('main')[0].onkeydown = function (e) {
+document.onkeydown = function (e) {
+  if($('main').hasClass('hide'))return;
   if (e.key == 'F11') {
     e.preventDefault();
     $('.fullscreen').click();
@@ -256,28 +264,53 @@ $('.closebtn').click(function (e) {
   $('main').addClass('hide');
 })
 
-
-function openSearch(keyword) {
+var si=1,keyword;
+function openSearch(key) {
   $('.search ul').html('');
+  si=1;
+  keyword=key;
   $.ajax({
     dataType: 'jsonp',
     url: 'https://mobiles.kugou.com/api/v3/search/song?format=jsonp&keyword=' + keyword + '&page=1&pagesize=30&showtype=1',
-    success: function (res) {
-      console.log(res);
-      for (var i = 0; i < res.data.info.length; i++) {
-        $('.search ul').append('<li data-hash="' + res.data.info[i].hash + '" data-albumid="' + res.data.info[i].album_id + '"><span class="si">' + (i + 1) + '</span><span class="sname">' + res.data.info[i].filename + '</span></li>')
-      }
-      $('.search ul li').click(function () {
-        hashlist.unshift({
-          hash: $(this).attr('data-hash'),
-          album_id: $(this).attr('data-albumid')
-        })
-        openMusic(0);
-        $('main').click();
-      })
-    }
+    success: searchSuccess
   })
 }
+
+function searchSuccess(res){
+  $('.search ul li.loading').remove();
+    for (var i = 0; i < res.data.info.length; i++) {
+      $('.search ul').append('<li data-hash="' + res.data.info[i].hash + '" data-albumid="' + res.data.info[i].album_id + '"><span class="si">' + (i + 1) + '</span><span class="sname">' + res.data.info[i].filename + '</span></li>')
+    }
+    $('.search ul').append('<li class="loadmore">加载更多</li>');
+    $('.search ul li').click(function () {
+      if($(this).hasClass('loadmore')){
+        si++;
+        $(this).text('正在加载...');
+        $(this).removeClass('loadmore');
+        $(this).addClass('loading');
+        $.ajax({
+          dataType: 'jsonp',
+          url: 'https://mobiles.kugou.com/api/v3/search/song?format=jsonp&keyword=' + keyword + '&page='+si+'&pagesize=30&showtype=1',
+          success:searchSuccess
+        });
+        return;
+      }
+      if($(this).hasClass('loading'))return;
+      hashlist.unshift({
+        hash: $(this).attr('data-hash'),
+        album_id: $(this).attr('data-albumid')
+      })
+      openMusic(0);
+      $('main').click();
+    })
+}
+$('.lopper').click(function(e){
+  if($(this).hasClass('act')){
+    $(this).removeClass('act');
+  }else{
+    $(this).addClass('act');
+  }
+})
 
 $('.searchbox input').keydown(function (e) {
   if (e.key == 'Enter' && $(this).val().trim()) {

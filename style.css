@@ -163,6 +163,10 @@ main .floatbtns>div{
   background-color: rgba(255, 255, 255, 0.333);
   display: block;
 }
+main .floatbtns>div.act{
+  border-color: #09f!important;
+  color: #09f!important;
+}
 main .floatbtns>div:hover{
   border-color: #999;
   color: #444;
