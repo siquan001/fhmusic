@@ -95,7 +95,7 @@
           title: res.data.author + ' - ' + res.data.title,
           songname: res.data.title,
           artist: res.data.author,
-          lrc: musicapi.parseLrc(res.data.lrc),
+          lrc: parseLrc(res.data.lrc),
           url: res.data.url,
           album: '',
           img: res.data.pic,
