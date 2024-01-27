@@ -1,5 +1,6 @@
 !function () {
   function xhr(url, callback) {
+    if(url.indexOf('api.epdd.cn')!=-1) url='https://util.siquan.tk/api/cors?url='+encodeURIComponent(url);
     var x=new XMLHttpRequest();
     x.open('GET', url, true);
     x.onreadystatechange = function () {
@@ -16,7 +17,7 @@
   }
 
   function search(keyword, callback, page = 1) {
-    var url = 'https://api.vkeys.cn/API/QQ_Music?word='+encodeURIComponent(keyword)+'&num=30&page='+page;
+    var url = 'https://api.lolimi.cn/API/yiny/?word='+encodeURIComponent(keyword)+'&num=30&page='+page;
     var a=xhr(url, function (data) {
       var res = {
         total: Infinity,
@@ -46,58 +47,66 @@
     return a;
   }
 
-  function getSongDetails(id, callback) {
-    var url = "https://api.vkeys.cn/API/QQ_Music?mid="+id+"&q=8";
-    var p={};
-    function ck(r){
-      for(var k in r){
-        p[k]=r[k];
-      }
-    }
-    var l=0;
-    var a=xhr(url, function (res) {
-      if(res.code==200){
-        ck({
-          title: res.data.song,
-          songname: res.data.singer+' - '+res.data.song,
-          artist: res.data.singer,
+  function getSongDetails(mid, cb) {
+    var c = 0, d = {},b;
+    var a = xhr('https://api.gumengya.com/Api/Tencent?format=json&id=' + mid, function (res) {
+      if (res == false || !res.data) {
+        a = xhr('https://api.lolimi.cn/API/yiny/?q=8&mid=' + mid, function (r) {
+          if (r == false || r.code != 200) {
+            cb({
+              error: '获取歌曲失败',
+              code: 10000
+            })
+            b.abort();
+          } else {
+            var e = {
+              title: r.data.singer + ' - ' + r.data.song,
+              songname: r.data.song,
+              artist: r.data.singer,
+              url: r.data.url,
+              album: r.data.album,
+              img: r.data.cover,
+            };
+            for (var k in e) {
+              d[k] = e[k];
+            }
+            c++;
+            if (c == 2) {
+              cb(d);
+            }
+          }
+        })
+        b = xhr('https://api.epdd.cn/V1/Music/Tencent/Lyric?mid=' + mid, function (r) {
+          if (r == false || r.code != 200) {
+            d.lrc = { 0: "歌词获取失败" }
+            d.lrcstr = '[00:00.00] 歌词获取失败'
+          } else {
+            d.lrc = parseLrc(r.data);
+            d.lrcstr = r.data;
+          }
+          c++;
+          if (c == 2) {
+            cb(d);
+          }
+        })
+        
+      } else {
+        cb({
+          title: res.data.author + ' - ' + res.data.title,
+          songname: res.data.title,
+          artist: res.data.author,
+          lrc: musicapi.parseLrc(res.data.lrc),
           url: res.data.url,
-          album: res.data.album,
-          img: res.data.cover,
-          ispriviage: false,
+          album: '',
+          img: res.data.pic,
+          lrcstr: res.data.lrc,
         });
-        l++
-        if(l==2){
-          callback(p);
-        }
-      }else{
-        callback({
-          error:'获取歌曲失败',
-          code:res.code
-        })
-      }
-    });
-    var b=xhr('https://api.vkeys.cn/API/QQ_Music/Lyric?mid='+id,function(res){
-      if(res.code==200){
-        ck({
-          lrcstr:res.data,
-          lrc:parseLrc(res.data)
-        })
-      }else{
-        ck({
-          lrc:{0:"歌词获取失败"},
-          lrcstr:'歌词获取失败'
-        })
-      }
-      l++;
-      if(l==2){
-        callback(p);
       }
     })
     return {
-      abort:function(){
+      abort: function () {
         a.abort();
-        b.abort();
+        b&&b.abort();
       }
     };
   }
