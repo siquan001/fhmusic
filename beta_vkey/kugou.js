@@ -1,6 +1,6 @@
 !function () {
   function xhr(url, callback) {
-    if(url.indexOf('api.epdd.cn')!=-1) url='https://util.siquan.tk/api/cors?url='+encodeURIComponent(url);
+    // if(url.indexOf('api.epdd.cn')!=-1) url='https://util.siquan.tk/api/cors?url='+encodeURIComponent(url);
     var x=new XMLHttpRequest();
     x.open('GET', url, true);
     x.onreadystatechange = function () {
