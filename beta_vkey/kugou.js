@@ -1,5 +1,5 @@
 !function () {
-  function xhr(url, callback) {
+  function xhr(url, callback,err) {
     // if(url.indexOf('api.epdd.cn')!=-1) url='https://util.siquan.tk/api/cors?url='+encodeURIComponent(url);
     var x=new XMLHttpRequest();
     x.open('GET', url, true);
@@ -7,6 +7,9 @@
       if (x.readyState == 4 && x.status == 200) {
         callback(JSON.parse(x.responseText));
       }
+    }
+    x.onerror = function () {
+      err(x.status);
     }
     x.send();
     return {
@@ -85,6 +88,13 @@
             d.lrcstr = r.data;
           }
           c++;
+          if (c == 2) {
+            cb(d);
+          }
+        },function(){
+          d.lrc = { 0: "歌词获取失败" }
+            d.lrcstr = '[00:00.00] 歌词获取失败'
+            c++;
           if (c == 2) {
             cb(d);
           }
