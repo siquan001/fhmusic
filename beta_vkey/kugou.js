@@ -79,7 +79,7 @@
             }
           }
         })
-        b = xhr('https://api.epdd.cn/V1/Music/Tencent/Lyric?mid=' + mid, function (r) {
+        b = xhr('https://siquan-api.wdnmd.top/api/QQMusic?type=lyrics&mid=' + mid, function (r) {
           if (r == false || r.code != 200) {
             d.lrc = { 0: "歌词获取失败" }
             d.lrcstr = '[00:00.00] 歌词获取失败'
