@@ -36,16 +36,14 @@ function openMusic(i) {
   $('.song_name').text('歌曲获取中...');
   $('.album_name').text('');
   $.ajax({
-    dataType: "jsonp",
-    url: "https://wwwapi.kugou.com/yy/index.php?r=play/getdata&hash=" + hashlist[i].hash.toUpperCase() +
-      "&dfid=2mScsJ16ucV81qLdzD238ELf&appid=1014&mid=1b211caf58cd1e1fdfea5a4657cc21f5&platid=4&album_id=" + hashlist[i].album_id +
-      "&_=" + Date.now(),
+    url: "https://api.gumengya.com/Api/KuGou?format=json&id=" + hashlist[i].hash.toUpperCase(),
+    type:'get',
     success: function (res) {
-      $('.album_img').attr('src', res.data.img);
-      $('.song_name').text(res.data.audio_name);
-      $('.album_name').text(res.data.album_name);
-      $('#audio').attr('src', res.data.play_url);
-      oLRC = createLrcObj(res.data.lyrics);
+      $('.album_img').attr('src', res.data.pic);
+      $('.song_name').text(res.data.author+' - '+res.data.title);
+      $('.album_name').text('');
+      $('#audio').attr('src', res.data.url);
+      oLRC = createLrcObj(res.data.lrc);
       $('.right ul').html('');
       for (var i = 0; i < oLRC.ms.length; i++) {
         $('.right ul').append('<li>' + oLRC.ms[i].c + '</li>');
