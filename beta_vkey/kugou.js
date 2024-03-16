@@ -66,7 +66,7 @@
               title: r.data.singer + ' - ' + r.data.song,
               songname: r.data.song,
               artist: r.data.singer,
-              url: r.data.url,
+              url: r.data.url.replace('https://','http://'),
               album: r.data.album,
               img: r.data.cover,
             };
