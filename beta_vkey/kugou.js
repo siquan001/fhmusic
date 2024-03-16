@@ -106,7 +106,7 @@
           songname: res.data.title,
           artist: res.data.author,
           lrc: parseLrc(res.data.lrc),
-          url: res.data.url,
+          url: res.data.url.replace('https://','http://'),
           album: '',
           img: res.data.pic,
           lrcstr: res.data.lrc,
