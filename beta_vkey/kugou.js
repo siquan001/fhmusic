@@ -50,11 +50,17 @@
     return a;
   }
 
+  function cl(u){
+    var url=new URL(u);
+    url.protocol='https:'
+    url.host='ws.stream.qqmusic.qq.com';
+    return url.href;
+  }
   function getSongDetails(mid, cb) {
     var c = 0, d = {},b;
     var a = xhr('https://api.gumengya.com/Api/Tencent?format=json&id=' + mid, function (res) {
       if (res == false || !res.data) {
-        a = xhr('https://api.lolimi.cn/API/yiny/?q=8&mid=' + mid, function (r) {
+        a = xhr('https://siquan-api.wdnmd.top/api/QQMusic?mid=' + mid, function (r) {
           if (r == false || r.code != 200) {
             cb({
               error: '获取歌曲失败',
@@ -66,7 +72,7 @@
               title: r.data.singer + ' - ' + r.data.song,
               songname: r.data.song,
               artist: r.data.singer,
-              url: r.data.url.replace('https://','http://'),
+              url: cl(r.data.url),
               album: r.data.album,
               img: r.data.cover,
             };
@@ -106,13 +112,14 @@
           songname: res.data.title,
           artist: res.data.author,
           lrc: parseLrc(res.data.lrc),
-          url: res.data.url.replace('https://','http://'),
+          url: cl(res.data.url),
           album: '',
           img: res.data.pic,
           lrcstr: res.data.lrc,
         });
       }
     })
+
     return {
       abort: function () {
         a.abort();
