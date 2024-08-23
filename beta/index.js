@@ -157,7 +157,7 @@ function removeSong(i){
   if(nowplay==i){
     if(playlist.length==0){
       nowplay=-1;
-      document.getElementById("player_album_img").src='https://image.gumengya.cn/i/2023/10/15/652b46cf15392.png';
+      document.getElementById("player_album_img").src='https://image.gumengya.com/i/2023/10/15/652b46cf15392.png';
     }else{
       if(nowplay==0){
         play(0);
