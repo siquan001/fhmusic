@@ -60,7 +60,8 @@
     var c = 0, d = {},b;
     var a = xhr('https://api.gumengya.com/Api/Tencent?format=json&id=' + mid, function (res) {
       if (res == false || !res.data) {
-        a = xhr('https://siquan-api.wdnmd.top/api/QQMusic?mid=' + mid, function (r) {
+        a = xhr('https://api.vkeys.cn/v2/music/tencent?quality=8&mid=' + mid, function (r) {
+          console.log(r);
           if (r == false || r.code != 200) {
             cb({
               error: '获取歌曲失败',
@@ -68,43 +69,47 @@
             })
             b.abort();
           } else {
-            var e = {
-              title: r.data.singer + ' - ' + r.data.song,
-              songname: r.data.song,
-              artist: r.data.singer,
-              url: cl(r.data.url),
-              album: r.data.album,
-              img: r.data.cover,
-            };
-            for (var k in e) {
-              d[k] = e[k];
-            }
-            c++;
-            if (c == 2) {
-              cb(d);
-            }
+            ba(r);
           }
         })
-        b = xhr('https://siquan-api.wdnmd.top/api/QQMusic?type=lyrics&mid=' + mid, function (r) {
-          if (r == false || r.code != 200) {
-            d.lrc = { 0: "歌词获取失败" }
-            d.lrcstr = '[00:00.00] 歌词获取失败'
-          } else {
-            d.lrc = parseLrc(r.data);
-            d.lrcstr = r.data;
+        function ba(r){
+          var e = {
+            title: r.data.singer + ' - ' + r.data.song,
+            songname: r.data.song,
+            artist: r.data.singer,
+            url: cl(r.data.url),
+            album: r.data.album,
+            img: r.data.cover,
+          };
+          for (var k in e) {
+            d[k] = e[k];
           }
           c++;
           if (c == 2) {
             cb(d);
           }
-        },function(){
-          d.lrc = { 0: "歌词获取失败" }
+        }
+        b = xhr('https://api.vkeys.cn/v2/music/tencent/lyric?mid=' + mid, _d);
+        var tim=setTimeout(function(){
+          d(false);
+        },5000)
+
+        function _d(r){
+          clearTimeout(tim);
+          console.log(r);
+          if (r == false || r.code != 200) {
+            d.nolrc=true;
+            d.lrc = { 0: "歌词获取失败" }
             d.lrcstr = '[00:00.00] 歌词获取失败'
-            c++;
+          } else {
+            d.lrc = parseLrc(r.data.lrc);
+            d.lrcstr = r.data.lrc;
+          }
+          c++;
           if (c == 2) {
             cb(d);
           }
-        })
+        }
         
       } else {
         cb({
@@ -119,7 +124,6 @@
         });
       }
     })
-
     return {
       abort: function () {
         a.abort();
