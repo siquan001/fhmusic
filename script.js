@@ -310,7 +310,7 @@ function openSearch(key) {
 function searchSuccess(res){
   $('.search ul li.loading').remove();
     for (var i = 0; i < res.data.length; i++) {
-      $('.search ul').append('<li data-id="' + res.data[i].mid + '"><span class="si">' + (i + 1+(si-1)*30) + '</span><span class="sname">' + res.data[i].singer+res.data[i].song + '</span></li>')
+      $('.search ul').append('<li data-id="' + res.data[i].mid + '"><span class="si">' + (i + 1+(si-1)*30) + '</span><span class="sname">' + res.data[i].singer+' - '+res.data[i].song + '</span></li>')
     }
     $('.search ul').append('<li class="loadmore">加载更多</li>');
     $('.search ul li').click(function () {
