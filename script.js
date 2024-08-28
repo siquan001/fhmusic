@@ -1,7 +1,6 @@
 var hashlist = [
   {
-    hash: "83b8717bc9184337ca8b2d8c60a9b15a",
-    album_id: "18694318"
+    id: "002aTpXP49B4FC"
   }
 ];
 
@@ -36,25 +35,55 @@ function openMusic(i) {
   $('.song_name').text('歌曲获取中...');
   $('.album_name').text('');
   $.ajax({
-    url: "https://api.gumengya.com/Api/KuGou?format=json&id=" + hashlist[i].hash.toUpperCase(),
+    url: "https://api.vkeys.cn/v2/music/tencent/geturl?q=8&mid=" + hashlist[i].id,
     type:'get',
     success: function (res) {
-      $('.album_img').attr('src', res.data.pic);
-      $('.song_name').text(res.data.author+' - '+res.data.title);
-      $('.album_name').text('');
+      $('.album_img').attr('src', res.data.cover);
+      $('.song_name').text(res.data.singer+' - '+res.data.song);
+      $('.album_name').text(res.data.album);
       $('#audio').attr('src', res.data.url);
+    }
+  })
+  $.ajax({
+    url:'https://api.vkeys.cn/v2/music/tencent/lyric?mid='+hashlist[i].id,
+    type:"get",
+    success:function(res){
       oLRC = createLrcObj(res.data.lrc);
+      yLRC=null;
+      if(res.data.trans){
+        yLRC=createLrcObj(res.data.trans);
+        $('.translate').show()
+      }else{
+        $('.translate').hide()
+      }
+      $('.translate').removeClass('act');
+
       $('.right ul').html('');
       for (var i = 0; i < oLRC.ms.length; i++) {
         $('.right ul').append('<li>' + oLRC.ms[i].c + '</li>');
       }
-      if(res.data.privilege>=10){
-        alert('你正在试听付费歌曲，只能试听1分钟，下载酷狗音乐听完整版。');
-      }
     }
   })
 }
+var yLRC,usetrans;
 
+$('.translate').click(function(){
+  if($(this).hasClass('act')){
+    $(this).removeClass('act');
+    usetrans=false;
+    $('.right ul').html('');
+      for (var i = 0; i < oLRC.ms.length; i++) {
+        $('.right ul').append('<li>' + oLRC.ms[i].c + '</li>');
+      }
+  }else{
+    $(this).addClass('act');
+    usetrans=true;
+    $('.right ul').html('');
+      for (var i = 0; i < oLRC.ms.length; i++) {
+        $('.right ul').append('<li>' + yLRC.ms[i].c + '</li>');
+      }
+  }
+})
 $('.playbtn').click(function () {
   if ($('#audio')[0].paused) {
     $('#audio')[0].play();
@@ -96,9 +125,13 @@ $('#audio').on('timeupdate', function () {
   for (var i = 0; i <= oLRC.ms.length; i++) {
     if (oLRC.ms[i]) {
       if (parseFloat(oLRC.ms[i].t) > $(this)[0].currentTime) {
-        $('.right ul').css('margin-top', $('.right').height() / 2 - 25 - $('.right ul li').height() * (i - 1) + 'px');
-        $('.right ul li.act').removeClass('act');
-        $('.right ul li').eq(i - 1).addClass('act');
+        var tli=$('.right ul li.act');
+        var rli=$('.right ul li').eq(i - 1);
+        tli.removeClass('act');
+        rli.addClass('act');
+        var tlitop=tli[0].offsetTop-$('.right ul')[0].offsetTop;
+        var h=$(".right").height()/2-tli.height()/2;      
+        $('.right ul').css('margin-top',h-tlitop+'px');
         break;
       }
     } else {
@@ -268,16 +301,16 @@ function openSearch(key) {
   si=1;
   keyword=key;
   $.ajax({
-    dataType: 'jsonp',
-    url: 'https://mobiles.kugou.com/api/v3/search/song?format=jsonp&keyword=' + keyword + '&page=1&pagesize=30&showtype=1',
+    type:"get",
+    url: 'https://api.vkeys.cn/v2/music/tencent/search/song?word=' + encodeURIComponent(keyword)+"&num=30",
     success: searchSuccess
   })
 }
 
 function searchSuccess(res){
   $('.search ul li.loading').remove();
-    for (var i = 0; i < res.data.info.length; i++) {
-      $('.search ul').append('<li data-hash="' + res.data.info[i].hash + '" data-albumid="' + res.data.info[i].album_id + '"><span class="si">' + (i + 1+(si-1)*30) + '</span><span class="sname">' + res.data.info[i].filename + '</span></li>')
+    for (var i = 0; i < res.data.length; i++) {
+      $('.search ul').append('<li data-id="' + res.data[i].mid + '"><span class="si">' + (i + 1+(si-1)*30) + '</span><span class="sname">' + res.data[i].singer+res.data[i].song + '</span></li>')
     }
     $('.search ul').append('<li class="loadmore">加载更多</li>');
     $('.search ul li').click(function () {
@@ -287,16 +320,15 @@ function searchSuccess(res){
         $(this).removeClass('loadmore');
         $(this).addClass('loading');
         $.ajax({
-          dataType: 'jsonp',
-          url: 'https://mobiles.kugou.com/api/v3/search/song?format=jsonp&keyword=' + keyword + '&page='+si+'&pagesize=30&showtype=1',
-          success:searchSuccess
-        });
+          type:"get",
+          url: 'https://api.vkeys.cn/v2/music/tencent/search/song?word=' + encodeURIComponent(keyword)+"&num=30",
+          success: searchSuccess
+        })
         return;
       }
       if($(this).hasClass('loading'))return;
       hashlist.unshift({
-        hash: $(this).attr('data-hash'),
-        album_id: $(this).attr('data-albumid')
+        id: $(this).attr('data-id'),
       })
       openMusic(0);
       $('main').click();
