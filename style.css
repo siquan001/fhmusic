@@ -36,6 +36,7 @@ main>.album_img{
   z-index: 1;
   object-fit: cover;
   object-position: center center;
+  filter: blur(30px);
 }
 main .left{
   transition: background .3s;
